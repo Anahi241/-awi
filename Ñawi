@@ -1,0 +1,45 @@
+int motorPin2=2;
+int trigPin2=4;
+int echoPin2=6;
+
+void setup(){ 
+  Serial.begin(9600); 
+  pinMode(echoPin2,INPUT); 
+  pinMode(trigPin2,OUTPUT); 
+  pinMode(motorPin2,OUTPUT); 
+  digitalWrite(motorPin2,LOW); 
+} 
+void loop(){ 
+  int duracion, distancia;  
+  digitalWrite(trigPin2, HIGH);
+  digitalWrite(trigPin2, LOW); 
+  duracion = pulseIn(echoPin2, HIGH); 
+  distancia = (duracion/2) / 29.1; 
+  
+  if (distancia <= 40 and distancia >= 30){ 
+    digitalWrite(motorPin2,HIGH);
+    delay(150);
+    digitalWrite(motorPin2,LOW); 
+    delay(1000);  
+  }  
+  else if( distancia < 30 and distancia > 15) { 
+    digitalWrite(motorPin2,HIGH); 
+    delay(250);
+    digitalWrite(motorPin2,LOW); 
+    delay(500);
+    } 
+  else if( distancia > 0 and distancia <=15){
+    digitalWrite(motorPin2,HIGH); 
+    delay(500);
+    digitalWrite(motorPin2,LOW); 
+    delay(150);
+  }
+  else digitalWrite(motorPin2,LOW); 
+  
+  
+  Serial.print("Distancia: ");
+  Serial.print(distancia);
+  Serial.print(" cm");
+  Serial.println();
+  delay(250);
+} 
